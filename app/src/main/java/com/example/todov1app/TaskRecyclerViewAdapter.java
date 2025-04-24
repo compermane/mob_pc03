@@ -40,8 +40,11 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String label = mData.get(position).getName();
-        holder.myTextView.setText(label);
+        String label  = mData.get(position).getName();
+        int    prioId = mData.get(position).getPriority();
+        String prio   = mData.get(position).getPrioAsString(prioId);
+
+        holder.myTextView.setText(label + "   Priority: " + prio);
     }
 
     // total number of rows

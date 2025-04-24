@@ -4,10 +4,24 @@ import java.io.Serializable;
 
 public class Task implements Serializable {
     String name, description;
+    int    priority;
 
-    public Task(String name, String description) {
+    public Task(String name, String description, int priority) {
         this.name = name;
         this.description = description;
+        this.priority = priority;
+    }
+
+    public void prioritize() { priority++; }
+    public int getPriority() { return priority; }
+
+    public String getPrioAsString(int prio) {
+        if (prio == 1)
+            return "Low";
+        if (prio == 2)
+            return "Medium";
+
+        return "High";
     }
 
     public String getName() {

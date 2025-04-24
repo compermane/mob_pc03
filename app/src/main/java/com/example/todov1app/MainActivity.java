@@ -120,7 +120,9 @@ public class MainActivity extends AppCompatActivity {
             if(item.getItemId() == R.id.showItem) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 Task tTask = tasks.get(currentPosition);
-                String tMsg = "Name: " + tTask.getName() + "\n" + "Description: " + tTask.getDescription();
+                int prio   = tTask.getPriority();
+                String tMsg = "Name: " + tTask.getName() + "\n" + "Description: " + tTask.getDescription()
+                              + "\n" + "Priority: " + tTask.getPrioAsString(prio);
                 builder.setTitle("Task details");
                 builder.setMessage(tMsg);
                 builder.setPositiveButton("OK", null);
@@ -143,6 +145,19 @@ public class MainActivity extends AppCompatActivity {
                 tasks.add(tTask);
                 taskRecyclerViewAdapter.notifyDataSetChanged();
                 mode.finish();	//encerra o action mode
+                return true;
+            } else if (item.getItemId() == R.id.task_prioritize) {
+                Task tTask = tasks.get(currentPosition);
+                int prio = tTask.getPriority();
+
+                if (prio == 3) {
+                    Toast.makeText(MainActivity.this, "Already maximum priority", Toast.LENGTH_LONG).show();
+                    return true;
+                }
+
+                tTask.prioritize();
+                taskRecyclerViewAdapter.notifyItemChanged(currentPosition);
+
                 return true;
             } else {
                 return false;
